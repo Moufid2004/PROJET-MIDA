@@ -10,7 +10,7 @@ https://docs.djangoproject.com/en/4.2/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.2/ref/settings/
 """
-import dj_database_url
+
 from pathlib import Path
 import os
 
@@ -25,7 +25,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-h=$3!e-1698jiox15=^_@20y&312gtj^yxww^em^o-xtebl51)'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = [
     '127.0.0.1',
@@ -36,7 +36,9 @@ ALLOWED_HOSTS = [
     "192.168.100.214",
     "192.168.1.76",
     "192.168.1.66",
-    'PROJET-MIDA.onrender.com'  
+    'PROJET-MIDA.onrender.com',
+    '.vercel.app',
+    '.now.sh'
 ]
 
 
@@ -107,16 +109,16 @@ WSGI_APPLICATION = 'FAD.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
-
-
-
 DATABASES = {
-    'default': dj_database_url.config(
-        default='postgresql://ferme_user:l067nKdQEcDQaXHplRcA1ai3BaCTTgyl@dpg-d0u1uf6mcj7s7398ogq0-a.oregon-postgres.render.com/ferme'
-    )
+       'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'railway',
+        'USER': 'postgres',
+        'PASSWORD': 'fygIFyIABMUYSyTOfdVEsYbkBphdJezi',
+        'HOST': 'switchyard.proxy.rlwy.net',
+        'PORT': '38679',
+    }
 }
-
-
 
 
 # Password validation
@@ -156,7 +158,7 @@ USE_TZ = True
 STATIC_URL = 'static/'
 STATICFILES_DIRS = [(os.path.join(BASE_DIR, 'static')) ]
 MEDIA_URL = 'images/'
-MEDIA_ROOT = os.path.join(BASE_DIR, 'backendimages')
+MEDIA_ROOT = os.path.join(BASE_DIR, 'backendimages','static')
 
 MEDIA_URL = 'images/'
 #MEDIA_ROOT = os.path.join(BASE_DIR, 'images')

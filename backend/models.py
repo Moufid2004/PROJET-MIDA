@@ -29,7 +29,7 @@ class Catégorie(models.Model):
 class inscription(models.Model):
     id = models.AutoField(primary_key=True)
     photo = models.ImageField(upload_to='fermes/photos/', blank=True, null=True)
-    nom = models.CharField(blank=True, null=True,max_length=255)
+    nom = models.CharField(blank=True, null=True)
     adresse = models.CharField(max_length=255,blank=True, null=True)  
     email = models.EmailField(blank=True, null=True)
     proprietaire = models.CharField(max_length=255,blank=True, null=True)
