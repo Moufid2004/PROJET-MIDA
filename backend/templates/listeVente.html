@@ -1,0 +1,78 @@
+{% extends 'index.html' %}
+{% load static %}
+
+{% block Body %}
+<head>
+    <link rel="stylesheet" href="https://bootswatch.com/5/cerulean/bootstrap.min.css">
+    <style>
+        .vente-card {
+            background-color: #fff;
+            border-radius: 12px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            transition: transform 0.2s ease-in-out;
+        }
+
+        .vente-card:hover {
+            transform: scale(1.01);
+        }
+
+        .produit-img {
+            width: 80px;
+            height: 80px;
+            object-fit: cover;
+            border-radius: 50%;
+            border: 2px solid #007BFF;
+        }
+    </style>
+</head>
+<body>
+<div class="container mt-5">
+    <h2 class="mb-4 text-success">Liste des ventes</h2>
+
+    <div class="table-responsive">
+        <table class="table table-hover align-middle">
+            <thead class="table-primary">
+                <tr>
+                    <th>Image</th>
+                    <th>Produit</th>
+                    <th>Quantité</th>
+                    <th>Client</th>
+                    <th>Date</th>
+                    <th>Facture</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for vente in ventes %}
+                    <tr class="vente-card">
+                        <td>
+                            {% if vente.produit.image %}
+                                <img src="{{ vente.produit.image.url }}" alt="{{ vente.produit.nom_produit }}" class="produit-img">
+                            {% else %}
+                                <span class="text-muted">Pas d'image</span>
+                            {% endif %}
+                        </td>
+                        <td>{{ vente.produit.nom_produit }}</td>
+                        <td>{{ vente.quantite }}</td>
+                        <td>{{ vente.client }}</td>
+                        <td>{{ vente.date_commande|date:"d/m/Y H:i" }}</td>
+                        <td>
+                            {% if vente.facture %}
+                                <a href="{% url 'voir_facture' vente.facture.id %}" class="btn btn-sm btn-outline-success">
+                                    Voir la facture
+                                </a>
+                            {% else %}
+                                <span class="badge bg-secondary">Non disponible</span>
+                            {% endif %}
+                        </td>
+                    </tr>
+                {% empty %}
+                    <tr>
+                        <td colspan="6" class="text-center text-muted">Aucune vente enregistrée.</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+</body>
+{% endblock %}

@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- Font Awesome -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet" />
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&family=Poppins:wght@600&display=swap" rel="stylesheet" />
+    <!-- MDB -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/5.0.0/mdb.min.css" rel="stylesheet" />
+    <title>Inscription - Ferme Agricole Digitale (FAD)</title>
+    <style>
+        :root {
+            --agri-primary: #4a6b2a;
+            --agri-secondary: #8ba888;
+            --agri-light: #f5f9f5;
+        }
+        body {
+            background-color: var(--agri-light);
+            font-family: 'Roboto', sans-serif;
+        }
+        .agri-card {
+            border-radius: 20px;
+            border: none;
+            box-shadow: 0 8px 20px rgba(74, 107, 42, 0.15);
+        }
+        .agri-header {
+            color: var(--agri-primary);
+            font-family: 'Poppins', sans-serif;
+            font-weight: 600;
+        }
+        .btn-agri {
+            background-color: var(--agri-primary);
+            color: white;
+            padding: 10px 30px;
+            font-size: 1.1rem;
+        }
+        .btn-agri:hover {
+            background-color: #3a5522;
+            color: white;
+        }
+        .form-outline .form-control:focus ~ .form-label {
+            color: var(--agri-primary);
+        }
+        .form-outline .form-control:focus {
+            border-color: var(--agri-primary);
+            box-shadow: 0 0 0 3px rgba(74, 107, 42, 0.25);
+        }
+        .form-check-input:checked {
+            background-color: var(--agri-primary);
+            border-color: var(--agri-primary);
+        }
+        .agri-icon {
+            color: var(--agri-primary);
+            font-size: 1.2rem;
+        }
+    </style>
+</head>
+<body>
+    <section class="vh-100 d-flex align-items-center">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-10 col-xl-9">
+                    <div class="card agri-card">
+                        <div class="card-body p-md-5">
+                            <div class="row align-items-center">
+                                <!-- Colonne gauche - Formulaire -->
+                                <div class="col-md-6 col-lg-6 order-2 order-lg-1">
+                                    <h1 class="text-center agri-header mb-4">
+                                        <i class="fas fa-tractor me-2"></i>Demande
+                                    </h1>
+                                    
+                                    {% if error %}
+                                    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                        <i class="fas fa-exclamation-circle me-2"></i>{{ message }}
+                                        <button type="button" class="btn-close" data-mdb-close="alert" aria-label="Close"></button>
+                                    </div>
+                                    {% endif %}
+
+                                    <form action="{% url 'Inscription' %}" method="POST" enctype="multipart/form-data" class="needs-validation" novalidate>
+                                        {% csrf_token %}
+                                        
+                                        <!-- Photo du fermier -->
+                                        <div class="mb-4">
+                                            <div class="d-flex align-items-center">
+                                                <i class="fas fa-camera agri-icon me-3"></i>
+                                                <div class="form-outline flex-fill">
+                                                    <input type="file" id="photo" class="form-control" name="photo" required />
+                                                    <label class="form-label" for="photo">Photo de la ferme</label>
+                                                    <div class="invalid-feedback">Veuillez uploader une photo</div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <!-- Nom de la ferme -->
+                                        <div class="mb-4">
+                                            <div class="d-flex align-items-center">
+                                                <i class="fas fa-tractor agri-icon me-3"></i>
+                                                <div class="form-outline flex-fill">
+                                                    <input type="text" id="nom" class="form-control" name="nom" required />
+                                                    <label class="form-label" for="nom">Nom de la ferme</label>
+                                                    <div class="invalid-feedback">Ce champ est obligatoire</div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <!-- Adresse -->
+                                        <div class="mb-4">
+                                            <div class="d-flex align-items-center">
+                                                <i class="fas fa-map-marker-alt agri-icon me-3"></i>
+                                                <div class="form-outline flex-fill">
+                                                    <input type="text" id="adresse" class="form-control" name="adresse" required />
+                                                    <label class="form-label" for="adresse">Adresse complète</label>
+                                                    <div class="invalid-feedback">Ce champ est obligatoire</div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <!-- Email -->
+                                        <div class="mb-4">
+                                            <div class="d-flex align-items-center">
+                                                <i class="fas fa-envelope agri-icon me-3"></i>
+                                                <div class="form-outline flex-fill">
+                                                    <input type="email" id="email" class="form-control" name="email" required />
+                                                    <label class="form-label" for="email">Email professionnel</label>
+                                                    <div class="invalid-feedback">Email invalide</div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <!-- Propriétaire -->
+                                        <div class="mb-4">
+                                            <div class="d-flex align-items-center">
+                                                <i class="fas fa-user agri-icon me-3"></i>
+                                                <div class="form-outline flex-fill">
+                                                    <input type="text" id="proprietaire" class="form-control" name="proprietaire" required />
+                                                    <label class="form-label" for="proprietaire">Nom du propriétaire</label>
+                                                    <div class="invalid-feedback">Ce champ est obligatoire</div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <!-- Téléphone -->
+                                        <div class="mb-4">
+                                          <div class="d-flex align-items-center">
+                                            <i class="fas fa-phone agri-icon me-3"></i>
+                                            <div class="form-outline flex-fill">
+                                              <input
+                                                type="tel"
+                                                id="numero_ordre"
+                                                class="form-control"
+                                                name="numero_ordre"
+                                                required
+                                                pattern="[0-9]+"
+                                                title="Numéro de téléphone (chiffres uniquement)"
+                                              />
+                                              <label class="form-label" for="numero_ordre">Téléphone</label>
+                                              <div class="invalid-feedback">
+                                                Veuillez entrer le numéro
+                                              </div>
+                                            </div>
+                                          </div>
+                                        </div>
+                                        
+
+                                        <!-- Conditions -->
+                                        <div class="form-check mb-4 ps-5">
+                                            <input class="form-check-input me-2" type="checkbox" id="conditions" required />
+                                            <label class="form-check-label" for="conditions">
+                                                J'accepte les <a href="#" class="text-success">conditions générales</a>
+                                            </label>
+                                            <div class="invalid-feedback">Vous devez accepter les conditions</div>
+                                        </div>
+
+                                        <!-- Bouton d'inscription -->
+                                        <div class="text-center">
+                                            <button type="submit" class="btn btn-agri btn-lg rounded-pill">
+                                                <i class="fas fa-user-plus me-2"></i>Envoyer
+                                            </button>
+                                        </div>
+                                    </form>
+                                </div>
+
+                                <!-- Colonne droite - Illustration -->
+                                <div class="col-md-6 col-lg-6 d-none d-lg-block order-1 order-lg-2 text-center">
+                                    <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-registration/draw1.webp" 
+                                         class="img-fluid" alt="Illustration ferme agricole" />
+                                    <h4 class="mt-4 agri-header">Rejoignez notre réseau agricole</h4>
+                                    <p class="text-muted">
+                                        Gérez votre ferme efficacement avec notre plateforme digitale
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- MDB -->
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/5.0.0/mdb.min.js"></script>
+    
+    <!-- Validation formulaire -->
+    <script>
+        (function() {
+            'use strict';
+            const forms = document.querySelectorAll('.needs-validation');
+            
+            Array.from(forms).forEach(form => {
+                form.addEventListener('submit', event => {
+                    if (!form.checkValidity()) {
+                        event.preventDefault();
+                        event.stopPropagation();
+                    }
+                    form.classList.add('was-validated');
+                }, false);
+            });
+        })();
+    </script>
+</body>
+</html>

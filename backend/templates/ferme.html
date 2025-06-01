@@ -1,0 +1,36 @@
+{% extends 'index.html' %}
+
+{% block Body %}
+
+<div class="container mt-5">
+    <h2 class="text-center text-success mb-4">Liste des Fermes</h2>
+    <div class="row">
+        {% for ferme in fermes %}
+        <div class="col-md-4 col-lg-3 mb-4">
+            <div class="card h-100 shadow-sm">
+                {% if ferme.photo %}
+                <img src="{{ ferme.photo.url }}" alt="{{ ferme.nom }}" class="card-img-top" style="height: 280px; object-fit: cover;">
+                {% else %}
+                <img src="https://via.placeholder.com/300x180?text=Pas+de+photo" class="card-img-top" alt="Photo par défaut">
+                {% endif %}
+                <div class="card-body">
+                    <h5 class="card-title">{{ ferme.nom }}</h5>
+                    <p class="card-text"><strong>Adresse :</strong> {{ ferme.adresse }}</p>
+                    <p class="card-text"><strong>Email :</strong> {{ ferme.email }}</p>
+                    <p class="card-text"><strong>Propriétaire :</strong> {{ ferme.proprietaire }}</p>
+                    <p class="card-text"><strong>Telephone:</strong> {{ ferme.numero_ordre }}</p>
+                </div>
+                <div class="card-footer bg-transparent border-top-0 d-flex justify-content-between">
+                    <a href="{% url 'modifyferme' ferme.id %}" class="btn btn-outline-success btn-sm">Modifier</a>
+                    <a href="{% url 'deleteferme' ferme.id %}" class="btn btn-outline-danger btn-sm">Supprimer</a>
+                </div>
+            </div>
+        </div>
+        {% empty %}
+        <div class="col-12">
+            <div class="alert alert-info text-center">Aucune ferme enregistrée pour le moment.</div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

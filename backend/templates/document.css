@@ -1,0 +1,298 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+html {
+    height: 100%;
+}
+
+p {
+    color: #5a5a5a;
+}
+
+#heading {
+    text-transform: uppercase;
+    color: #4a6b2a; /* Vert foncé agricole */
+    font-weight: normal;
+}
+
+#msform {
+    text-align: center;
+    position: relative;
+    margin-top: 20px;
+}
+
+#msform fieldset {
+    background: white;
+    border: 0 none;
+    border-radius: 0.5rem;
+    box-sizing: border-box;
+    width: 100%;
+    margin: 0;
+    padding-bottom: 20px;
+    position: relative;
+    box-shadow: 0 2px 10px rgba(139, 168, 136, 0.1); /* Ombre verte douce */
+}
+
+.form-card {
+    text-align: left;
+}
+
+#msform fieldset:not(:first-of-type) {
+    display: none;
+}
+
+#msform input, #msform textarea, #msform select {
+    padding: 10px 15px;
+    border: 1px solid #d1d9d1;
+    border-radius: 4px;
+    margin-bottom: 20px;
+    margin-top: 5px;
+    width: 100%;
+    box-sizing: border-box;
+    font-family: 'Roboto', sans-serif;
+    color: #3a3a3a;
+    background-color: #f8faf8;
+    font-size: 16px;
+    transition: all 0.3s;
+}
+
+#msform input:focus, #msform textarea:focus, #msform select:focus {
+    border: 1px solid #4a6b2a;
+    outline-width: 0;
+    box-shadow: 0 0 0 2px rgba(74, 107, 42, 0.2);
+    background-color: white;
+}
+
+/* Buttons */
+#msform .action-button {
+    width: 120px;
+    background: #4a6b2a; /* Vert foncé */
+    font-weight: bold;
+    color: white;
+    border: 0 none;
+    border-radius: 4px;
+    cursor: pointer;
+    padding: 12px 5px;
+    margin: 10px 0px 10px 5px;
+    float: right;
+    transition: background 0.3s;
+}
+
+#msform .action-button:hover, #msform .action-button:focus {
+    background-color: #3a5522;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+#msform .action-button-previous {
+    width: 120px;
+    background: #8ba888; /* Vert clair */
+    font-weight: bold;
+    color: white;
+    border: 0 none;
+    border-radius: 4px;
+    cursor: pointer;
+    padding: 12px 5px;
+    margin: 10px 5px 10px 0px;
+    float: right;
+    transition: background 0.3s;
+}
+
+#msform .action-button-previous:hover, #msform .action-button-previous:focus {
+    background-color: #6d8a6a;
+}
+
+/* Card styling */
+.card {
+    z-index: 0;
+    border: none;
+    position: relative;
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(139, 168, 136, 0.15);
+}
+
+/* Titles */
+.fs-title {
+    font-size: 24px;
+    color: #4a6b2a;
+    margin-bottom: 15px;
+    font-weight: 600;
+    text-align: left;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #e0e6df;
+}
+
+.agri-text {
+    color: #4a6b2a;
+    font-weight: normal;
+}
+
+/* Progress Bar */
+#progressbar {
+    margin-bottom: 30px;
+    overflow: hidden;
+    color: #d1d9d1;
+    padding-left: 0;
+}
+
+#progressbar .active {
+    color: #4a6b2a;
+}
+
+#progressbar li {
+    list-style-type: none;
+    font-size: 15px;
+    width: 25%;
+    float: left;
+    position: relative;
+    font-weight: 500;
+}
+
+/* Icons in the ProgressBar */
+#progressbar #account:before {
+    font-family: FontAwesome;
+    content: "\f13e"; /* File icon */
+}
+
+#progressbar #personal:before {
+    font-family: FontAwesome;
+    content: "\f007"; /* User icon */
+}
+
+#progressbar #payment:before {
+    font-family: FontAwesome;
+    content: "\f030"; /* Camera icon */
+}
+
+#progressbar #confirm:before {
+    font-family: FontAwesome;
+    content: "\f00c"; /* Check icon */
+}
+
+/* ProgressBar circles */
+#progressbar li:before {
+    width: 50px;
+    height: 50px;
+    line-height: 50px;
+    display: block;
+    font-size: 20px;
+    color: white;
+    background: #d1d9d1;
+    border-radius: 50%;
+    margin: 0 auto 10px auto;
+    padding: 0;
+}
+
+/* ProgressBar connectors */
+#progressbar li:after {
+    content: '';
+    width: 100%;
+    height: 2px;
+    background: #d1d9d1;
+    position: absolute;
+    left: 0;
+    top: 25px;
+    z-index: -1;
+}
+
+/* Active steps */
+#progressbar li.active:before, #progressbar li.active:after {
+    background: #4a6b2a;
+}
+
+/* Field labels */
+.fieldlabels {
+    color: #5a5a5a;
+    text-align: left;
+    font-size: 14px;
+    font-weight: 500;
+    margin-top: 15px;
+    display: block;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    #progressbar li {
+        font-size: 12px;
+    }
+    
+    #progressbar li:before {
+        width: 40px;
+        height: 40px;
+        line-height: 40px;
+    }
+    
+    #progressbar li:after {
+        top: 20px;
+    }
+    
+    .fs-title {
+        font-size: 20px;
+    }
+}
+
+/* Custom icons for agriculture */
+#progressbar #farm:before {
+    content: "\f1bb"; /* Tractor icon */
+}
+
+#progressbar #products:before {
+    content: "\f06c"; /* Leaf icon */
+}
+
+#progressbar #inventory:before {
+    content: "\f187"; /* Inventory icon */
+}
+
+#progressbar #confirm:before {
+    content: "\f00c"; /* Check icon */
+}
+/* Notifications */
+.notification-container {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 1000;
+    max-width: 350px;
+}
+
+.alert {
+    padding: 15px;
+    margin-bottom: 10px;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    opacity: 0.95;
+    transition: all 0.3s ease;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.alert-success {
+    background-color: #d4edda;
+    color: #155724;
+    border-left: 5px solid #28a745;
+}
+
+.alert-error {
+    background-color: #f8d7da;
+    color: #721c24;
+    border-left: 5px solid #dc3545;
+}
+
+.alert-info {
+    background-color: #e2e3e5;
+    color: #383d41;
+    border-left: 5px solid #6c757d;
+}
+
+.close-notification {
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    cursor: pointer;
+    padding: 0;
+    margin-left: 10px;
+}

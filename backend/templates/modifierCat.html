@@ -1,0 +1,21 @@
+{% extends 'index.html' %}
+
+{% load crispy_forms_tags %}
+
+{% block Body %}
+
+<div class="container mt-5" style="max-width: 600px;">
+    <div class="card shadow">
+        <div class="card-header bg-success text-white">
+            <h3 class="mb-0">Ajouter une catégorie 🌿</h3>
+        </div>
+        <div class="card-body">
+            <form method="post">
+                {% csrf_token %}
+                {{ form|crispy }}
+                <button type="submit" class="btn btn-success w-100 mt-3">Enrégistrer</button>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

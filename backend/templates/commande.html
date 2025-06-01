@@ -1,0 +1,56 @@
+{% extends 'index.html' %}
+
+{% block Body %}
+<div class="container mt-5">
+    <h2 class="mb-4 text-center text-success fw-bold">Mes Commandes</h2>
+    <div class="table-responsive">
+        <table class="table table-bordered table-hover align-middle shadow-sm">
+            <thead class="thead-light text-center">
+                <tr class="table-success">
+                    <th>Image</th>
+                    <th>Produit</th>
+                    <th>Quantité</th>
+                    <th>Prix</th>
+                    <th>Client</th>
+                    <th>Date</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for commande in commandes %}
+                <tr>
+                    <td class="text-center">
+                        <img src="{{ commande.produit.image.url }}" alt="{{ commande.produit.nom_produit }}" class="rounded-circle" width="50" height="50" style="object-fit: cover;">
+                    </td>
+                    <td>{{ commande.produit.nom_produit }}</td>
+                    <td class="text-center">{{ commande.quantite }}</td>
+                    <td>{{ commande.produit.prix }} CFA</td>
+                    <td>{{ commande.useremail }}</td>
+                    <td>{{ commande.date_commande|date:"d/m/Y H:i:s" }}</td>
+                    <td class="text-center">
+                        <div class="d-flex justify-content-center">
+                            <form method="post" action="{% url 'accepter_commande' commande.id %}" class="me-1">
+                                {% csrf_token %}
+                                <button type="submit" class="btn btn-success btn-sm">
+                                    ✅ Accepter
+                                </button>
+                            </form>
+                            <form method="post" action="{% url 'refuser_commande' commande.id %}">
+                                {% csrf_token %}
+                                <button type="submit" class="btn btn-danger btn-sm">
+                                    ❌ Refuser
+                                </button>
+                            </form>
+                        </div>
+                    </td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="7" class="text-center">Aucune commande trouvée.</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,33 @@
+{% extends 'index.html' %}
+
+{% block Body %}
+
+<div class="row mt-4">
+    {% for produit in produits %}
+    <div class="col-md-3 mb-4">
+        <div class="card h-10 card-custom">
+            {% if produit.image %}
+            <img src="{{ produit.image.url }}" alt="{{ produit.nom_produit }}" class="card-img-top" style="width: 100px; height: 100px; object-fit: cover;">
+
+            {% endif %}
+            <div class="card-body">
+                <h5 class="card-title">{{ produit.nom_produit }}</h5>
+                <p class="card-text text-orange">Prix : {{ produit.prix }} CFA</p>
+                <p class="card-text">{{ produit.description }}</p>
+                <p class="card-text">Catégorie : {{ produit.categorie }}</p>
+                <p class="card-text">feme: {{ produit.ferme}}</p>
+                <div class="d-flex justify-content-between">
+                    <a href="{% url 'modifyferme' produit.idProduit %}" class="btn btn-success">Modifier</a>
+                    <a href="{% url 'deleteferme' produit.idProduit %}" class="btn btn-warning">Supprimer</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+
+{% if not produits and not categories %}
+    <p>Aucun résultat trouvé.</p>
+{% endif %}
+
+{% endblock %}

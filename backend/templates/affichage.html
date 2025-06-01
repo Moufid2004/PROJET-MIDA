@@ -1,0 +1,65 @@
+{% extends 'index.html' %}
+
+{% block Body %}
+<style>
+    .card-custom {
+        border-radius: 12px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        transition: transform 0.2s ease, box-shadow 0.3s ease;
+    }
+
+    .card-custom:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+    }
+
+    .card-img-top {
+        border-top-left-radius: 12px;
+        border-top-right-radius: 12px;
+    }
+
+    .card-title {
+        font-weight: bold;
+        color: #333;
+    }
+
+    .card-text {
+        font-size: 14px;
+    }
+
+    .text-orange {
+        color: #e67e22;
+    }
+
+    .btn i {
+        margin-right: 5px;
+    }
+</style>
+
+<div class="row mt-4">
+    {% for produit in produits %}
+    <div class="col-md-4 col-lg-3 mb-4">
+        <div class="card h-100 card-custom">
+            {% if produit.image %}
+            <img src="{{ produit.image.url }}" alt="{{ produit.nom_produit }}" class="card-img-top" style="height: 160px; object-fit: cover;">
+            {% endif %}
+            <div class="card-body">
+                <h5 class="card-title">{{ produit.nom_produit }}</h5>
+                <p class="card-text text-orange">Prix unitaire : <strong>{{ produit.prix }} CFA</strong></p>
+                <p class="card-text">Description : {{ produit.description }}</p>
+                <p class="card-text">Catégorie : <em>{{ produit.categorie }}</em></p>
+                <p class="card-text">Ferme : <strong>{{ produit.ferme.nom }}</strong></p>
+            </div>
+            <div class="card-footer bg-white border-top-0 d-flex justify-content-between px-3 pb-3">
+                <a href="{% url 'modifyProduit' produit.idProduit %}" class="btn btn-success btn-sm">
+                    <i class="bi bi-pencil-square"></i> Modifier
+                </a>
+                <a href="{% url 'deleteProduit' produit.idProduit %}" class="btn btn-warning btn-sm">
+                    <i class="bi bi-trash"></i> Supprimer
+                </a>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}

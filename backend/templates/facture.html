@@ -1,0 +1,214 @@
+{% extends 'index.html' %}
+{% load static %}
+{% block Body %}
+<head>
+    <link rel="stylesheet" type="text/css" href="https://bootswatch.com/5/cerulean/bootstrap.min.css">
+    <style>
+        /* Styles pour l'impression */
+        @media print {
+            body {
+                margin: 0;
+                padding: 0;
+                font-family: "Times New Roman", Times, serif;
+                background-color: white;
+            }
+            .container {
+                width: 100%;
+                margin: 0;
+                padding: 20px;
+                background-color: white;
+            }
+            .header img {
+                max-width: 100px;
+                margin-right: 20px;
+            }
+            .no-print {
+                display: none;
+            }
+        }
+
+        /* Styles pour l'écran */
+        body {
+            font-family: "Arial", sans-serif;
+            background-color: #f5f9f5;
+        }
+        .container {
+            max-width: 800px;
+            margin: 30px auto;
+            padding: 30px;
+            background-color: white;
+            border: 1px solid #d1e7dd;
+            box-shadow: 0 0 15px rgba(74, 107, 42, 0.1);
+            border-radius: 8px;
+        }
+        .header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid #4a6b2a;
+        }
+        .header img {
+            max-width: 80px;
+            height: auto;
+        }
+        .header h2 {
+            color: #4a6b2a;
+            margin: 0;
+            font-size: 28px;
+            font-weight: 700;
+        }
+        .header .farm-info {
+            text-align: right;
+        }
+        .info-section {
+            margin: 25px 0;
+        }
+        .info-section h5 {
+            color: #4a6b2a;
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+        .table {
+            margin-top: 25px;
+            border: 1px solid #dee2e6;
+        }
+        .table thead {
+            background-color: #4a6b2a;
+            color: white;
+        }
+        .table th {
+            font-weight: 500;
+        }
+        .footer {
+            text-align: center;
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 1px solid #d1e7dd;
+            color: #5a5a5a;
+            font-size: 14px;
+        }
+        .btn-print {
+            background-color: #4a6b2a;
+            border-color: #4a6b2a;
+            padding: 8px 25px;
+            font-weight: 500;
+        }
+        .btn-print:hover {
+            background-color: #3a5522;
+            border-color: #3a5522;
+        }
+        .text-agri {
+            color: #4a6b2a;
+        }
+        .total-row {
+            font-weight: bold;
+            background-color: #f8f9fa;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- En-tête de la facture -->
+        <div class="header">
+            <div>
+                <img src="{% static 'assets/img/FAD2.png' %}" alt="Logo Ferme">
+            </div>
+            <div>
+                <h2>Facture FAD</h2>
+                <div class="farm-info">
+                    <small>{{ facture.vente.produit.ferme.nom }}</small><br>
+                    <small>{{ facture.vente.produit.ferme.adresse }}</small>
+                </div>
+            </div>
+        </div>
+
+        <!-- Informations sur la facture -->
+        <div class="info-section">
+            <div class="row">
+                <div class="col-md-6">
+                    <h5>Client</h5>
+                    <p><strong>{{ facture.vente.client }}</strong></p>
+                    {% if facture.vente.produit.ferme.email %}
+                    <p><small>{{ facture.vente.produit.ferme.email }}</small></p>
+                    {% endif %}
+                </div>
+                <div class="col-md-6 text-end">
+                    <h5>Détails de la facture</h5>
+                    <p><strong>N° Facture:</strong> FAD-{{ facture.id }}</p>
+                    <p><strong>Date:</strong> {{ facture.date_facture|date:"d/m/Y H:i" }}</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Détails de la vente -->
+        <div class="row mt-4">
+            <div class="col-md-12">
+                <table class="table table-bordered table-hover">
+                    <thead>
+                        <tr>
+                            <th>Produit</th>
+                            <th>Catégorie</th>
+                            <th>Quantité</th>
+                            <th>Prix Unitaire</th>
+                            <th>Sous-total</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>{{ facture.vente.produit.nom_produit }}</td>
+                            <td>{{ facture.vente.produit.categorie }}</td>
+                            <td>{{ facture.vente.quantite }}</td>
+                            <td>{{ facture.vente.produit.prix }} CFA</td>
+                            <td>{{ facture.montant_total }} CFA</td>
+                        </tr>
+                    </tbody>
+                    <tfoot>
+                        <tr class="total-row">
+                            <td colspan="4" class="text-end"><strong>Total HT</strong></td>
+                            <td>{{ facture.montant_total }} CFA</td>
+                        </tr>
+                        <tr class="total-row">
+                            <td colspan="4" class="text-end"><strong>TVA (18%)</strong></td>
+                            <td>{{ facture.montant_total}} CFA</td>
+                        </tr>
+                        <tr class="total-row">
+                            <td colspan="4" class="text-end"><strong>Montant Total TTC</strong></td>
+                            <td>{{ facture.montant_total }} CFA</td>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
+        </div>
+
+        <!-- Notes et conditions -->
+        <div class="row mt-4">
+            <div class="col-md-12">
+                <div class="card border-light">
+                    <div class="card-body">
+                        <h5 class="card-title text-agri">Conditions de paiement</h5>
+                        <p class="card-text">
+                            Paiement à réception de la facture.<br>
+                            Paiement accepté par virement bancaire ou mobile money.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Footer de la facture -->
+        <div class="footer mt-5">
+            <p>{{ facture.vente.produit.ferme.nom }} - {{ facture.vente.produit.ferme.adresse }}</p>
+            <p>Contact: {{ facture.vente.produit.ferme.email }} | Tél: {{ facture.vente.produit.ferme.numero_ordre }}</p>
+            <p class="mt-2"><small>Merci pour votre confiance et à bientôt !</small></p>
+        </div>
+
+        <!-- Bouton pour imprimer la facture -->
+        <div class="text-center no-print mt-4">
+            <button onclick="window.print()" class="btn btn-print">Imprimer la facture</button>
+            <a href="{% url 'liste_ventes' %}" class="btn btn-secondary ms-2">Retour aux ventes</a>
+        </div>
+    </div>
+</body>
+{% endblock %}
