@@ -163,7 +163,7 @@ STATIC_URL = '/static/'  # Note: ajout du slash initial
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'static'),  # Dossier où vous placez vos fichiers statiques
 ]
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')  # Dossier où collectstatic va tout rassembler
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')  # Dossier où collectstatic va tout rassembler
 
 # Paramètres MEDIA (Images uploadées)
 MEDIA_URL = '/media/'  # Note: ajout du slash initial
