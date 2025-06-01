@@ -38,7 +38,8 @@ ALLOWED_HOSTS = [
     "192.168.1.66",
     'PROJET-MIDA.onrender.com',
     '.vercel.app',
-    '.now.sh'
+    '.now.sh',
+    '.railway.app'
 ]
 
 
