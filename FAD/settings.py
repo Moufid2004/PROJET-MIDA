@@ -10,7 +10,7 @@ https://docs.djangoproject.com/en/4.2/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.2/ref/settings/
 """
-
+import dj_database_url
 from pathlib import Path
 import os
 
@@ -107,16 +107,13 @@ WSGI_APPLICATION = 'FAD.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
+
 DATABASES = {
-       'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'ferme',
-        'USER': 'postgres',
-        'PASSWORD': '2004',
-        'HOST': '127.0.0.1',
-        'PORT': '5432',
-    }
+    'default': dj_database_url.config(
+        default=os.environ.get('postgresql://ferme_user:l067nKdQEcDQaXHplRcA1ai3BaCTTgyl@dpg-d0u1uf6mcj7s7398ogq0-a.oregon-postgres.render.com/ferme')
+    )
 }
+
 
 
 # Password validation
