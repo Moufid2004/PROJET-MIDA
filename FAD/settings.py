@@ -36,7 +36,7 @@ ALLOWED_HOSTS = [
     "192.168.100.214",
     "192.168.1.76",
     "192.168.1.66",
-    'moufid.pythonanywhere.com'
+    'PROJET-MIDA.onrender.com'  
 ]
 
 
